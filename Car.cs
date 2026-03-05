@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static CarAppClass.Fueltype;
 
 namespace CarAppClass
 {
@@ -13,19 +14,28 @@ namespace CarAppClass
         private int _Odometer { get; set; }
         private string _FuelType { get; set; }
         private bool _IsEngineOn { get; set; }
-        private double _KmPerLiter { get; set; }
+        public double _KmPerLiter { get;}
+        public FuelType FuelType {  get; set; }
+        private double _LiterPrice { get; set; }
 
-        public Car(string brand, string model, int year, char geartype, int odometer, string fueltype, bool isengineon, double kmperliter)
+        private List<Trip> _Triplist { get; set; }
+
+        public Car(string brand, string model, int year, char gearType, int odometer, bool isengineon, FuelType fuelType, double kmPerLiter, double LiterPrice)
         {
+
             _Brand = brand;
             _Model = model;
             _Year = year;
-            _GearType = geartype;
+            _GearType = gearType;
             _Odometer = odometer;
-            _FuelType = fueltype;
             _IsEngineOn = isengineon;
-            _KmPerLiter = kmperliter;
+            FuelType = fuelType;
+            _KmPerLiter = kmPerLiter;
+            _LiterPrice = LiterPrice;
         }
+
+
+        
         public void StartCar()
         {
             _IsEngineOn = true;
@@ -62,10 +72,14 @@ namespace CarAppClass
         }
 
        
-        public void GetCarDetails()
+        public void CarDetails()
         {
             Console.WriteLine($"bilmoddelen er en {_Brand}, {_Model}. Bilen er fra {_Year} og har {_GearType} Gearkasse. Bilen har kørt {_Odometer}, og bruger {_FuelType} som brændstof. bilen køre {_KmPerLiter} pr. liter.");
         }
+
+       
+      
+
 
 
     }

@@ -1,4 +1,6 @@
-﻿using System.Security.Cryptography;
+﻿using Microsoft.VisualBasic.FileIO;
+using System.Security.Cryptography;
+using static CarAppClass.Fueltype;
 
 namespace CarAppClass
 {
@@ -6,21 +8,49 @@ namespace CarAppClass
     {
         static void Main(string[] args)
         {
-           int km = 0;
+
+
+            Console.Write("Indtast mærke: ");
+            string brand = Console.ReadLine();
+
+            Console.Write("Indtast model: ");
+            string model = Console.ReadLine();
+
+            Console.Write("Indtast år: ");
+            int year = int.Parse(Console.ReadLine());
+
+            Console.Write("Indtast geartype (f/m): ");
+            char gearType = char.Parse(Console.ReadLine());
+
+            Console.Write("Indtast km-stand: ");
+            int odometer = int.Parse(Console.ReadLine());
+
+            Console.Write("Indtast brændstoftype (Benzin/Diesel/Electric/Hybrid): ");
+            Fueltype.FuelType fuelType = Enum.Parse<Fueltype.FuelType>(Console.ReadLine());
+
+            Console.Write("Er motoren tændt (true/false): ");
+            bool isEngineOn = bool.Parse(Console.ReadLine());
+
+            Console.Write("Indtast km/l: ");
+            double kmPerLiter = double.Parse(Console.ReadLine());
+
+            Console.Write("Indtast prisen på det brændstof din bil bruger");
+            double LiterPrice = double.Parse(Console.ReadLine());
+
+
+            Car userCar = new Car(brand, model, year, gearType, odometer, isEngineOn, fuelType, kmPerLiter, LiterPrice);
+
             
-            Car MyCar1 = new Car("Ford","Cmax",2017,'m',190000, "diesel",false, 24.5);
-            Car MyCar2 = new Car("Ford", "Kuga", 2019, 'm', 120000, "diesel", false, 25.5);
 
-            // 100 km
-            MyCar1.Drive(100);
-            MyCar2.Drive(100);
+            userCar.CarDetails();
+        
 
-            // km, afstand
-            Console.WriteLine("Det kommeer til at koste" + "" + MyCar1.CalculateTripPrice(10) + "" + "kr");
-            Console.WriteLine("Det kommeer til at koste" + "" + MyCar2.CalculateTripPrice(15)+ "" +"kr");
 
-            MyCar1.GetCarDetails();
-            MyCar2.GetCarDetails();
+
+            Trip mytrip = new Trip (userCar, 200,new DateTime(2026,5,15),new DateTime(2026,5,16)  );
+
+
+            Console.WriteLine(mytrip.TimeSpanCalculateDuration());
 
             
 
