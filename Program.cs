@@ -8,7 +8,6 @@ namespace CarAppClass
     {
         static void Main(string[] args)
         {
-
             Car myCar1 = new Car("Toyota", "Corolla", 2020, 'A', "Benzin", 22.5);
             Car myCar2 = new Car("Nissan", "Qashqai", 2017, 'M', "Diesel", 17.8);
 
@@ -36,16 +35,30 @@ namespace CarAppClass
 
 
 
-
-
-
-
-
-
+            // brug contructor til at opette et nyt trip
+            DateTime startTime = new DateTime(2026, 3, 12, 8, 30, 0);
+            DateTime endTime = new DateTime(2026, 3, 12, 9, 15, 0);
+            Trip trip = new Trip(myCar1, 200, startTime, endTime);
 
 
 
 
         }
+        public static List<Trip> GetTripsByDate(DateTime.Date Inputdate)
+        {
+            List<Trip> ResultTrips = new List<Trip>();
+
+            foreach (Trip trip in new List<Trip>())
+            {
+                if (trip.TripDate == Inputdate)
+                {
+                    ResultTrips.Add(trip);
+                }
+
+            }
+            return ResultTrips;
+
+
+        }
     }
-}
+} 

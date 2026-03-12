@@ -8,12 +8,14 @@ namespace CarAppClass
     internal class Trip
     {
 
-        private double Distance {  get; set; }
-        private DateTime TripDate { get; set; }
-        private DateTime StartTime { get; set; }
-        private DateTime EndTime { get; set; }
+        public double Distance {  get; private set; }
+        public DateTime TripDate { get; private set; }
+        public DateTime StartTime { get; private set; }
+        public DateTime EndTime { get; private set; }
        
         private Car _car;
+
+        public List<Trip> trips = new List<Trip>();
 
         public Trip(Car car, double distance, DateTime startTime, DateTime endTime)
         {
