@@ -8,10 +8,11 @@ namespace CarAppClass
     internal class Trip
     {
 
-        private double Distance;
-        private DateTime TripDate;
-        private DateTime StartTime;
-        private DateTime EndTime;
+        private double Distance {  get; set; }
+        private DateTime TripDate { get; set; }
+        private DateTime StartTime { get; set; }
+        private DateTime EndTime { get; set; }
+       
         private Car _car;
 
         public Trip(Car car, double distance, DateTime startTime, DateTime endTime)
@@ -40,7 +41,7 @@ namespace CarAppClass
         {
             double usedfuel = 0.0;
 
-            usedfuel = Distance / _car._KmPerLiter;
+            usedfuel = Distance / _car._kmPerLiter;
 
 
             return usedfuel;
@@ -48,21 +49,14 @@ namespace CarAppClass
 
         public double CalculateTripPrice(double literPrice, double usedfuel, string _FuelType)
         {
-            
-            
-           
-
-            if (literPrice > 0)
-            { usedfuel *= literPrice; }
-
-
-
-
-
-            return literPrice;
+            usedfuel *= literPrice;
+            return usedfuel;
         }
 
-
+        public string GetTripDetails(double Distance, double usedfuel, TimeSpan TimeDuration)
+        {
+            return $"Turen du kørte var på {Distance}km. Du brugte{usedfuel:F2}. Det tog {TimeDuration}";
+        }
 
 
 

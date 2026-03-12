@@ -7,80 +7,110 @@ namespace CarAppClass
 {
     internal class Car
     {
-        private string _Brand { get; set; }
-        private string _Model { get; set; }
-        private int _Year { get; set; }
-        private char _GearType { get; set; }
-        private int _Odometer { get; set; }
-        private string _FuelType { get; set; }
-        private bool _IsEngineOn { get; set; }
-        public double _KmPerLiter { get;}
-        public FuelType FuelType {  get; set; }
-        private double _LiterPrice { get; set; }
+        // Private felter (indkapsling)
+        public string _brand{ get; private set; }
+        public string _model{ get; private set; }
+        public int _year{ get; private set; }
+        public char _gear{ get; private set; }
+        public int _odometer{ get; private set; }
+        public string _fuelType{ get; private set; }
+        public bool _isEngineOn { get; private set; }
+        public double _kmPerLiter {  get; private set; }
 
-        private List<Trip> _Triplist { get; set; }
-
-        public Car(string brand, string model, int year, char gearType, int odometer, bool isengineon, FuelType fuelType, double kmPerLiter, double LiterPrice)
+        // Konstruktør
+        public Car(string brand, string model, int year, char gear, string fuelType, double kmPerLiter)
         {
-
-            _Brand = brand;
-            _Model = model;
-            _Year = year;
-            _GearType = gearType;
-            _Odometer = odometer;
-            _IsEngineOn = isengineon;
-            FuelType = fuelType;
-            _KmPerLiter = kmPerLiter;
-            _LiterPrice = LiterPrice;
+            _brand = brand;
+            _model = model;
+            _year = year;
+            _gear = gear;
+            _fuelType = fuelType;
+            _kmPerLiter = kmPerLiter > 0 ? kmPerLiter : 1;
+            _odometer = 0;
+            _isEngineOn = false;
         }
 
-
-        
-        public void StartCar()
+        // Properties
+        public string Brand
         {
-            _IsEngineOn = true;
+            get { return _brand; }
+            set { _brand = value; }
         }
-        public void Drive(int km)
+
+        public string Model
         {
-           
-            if (!_IsEngineOn)
+            get { return _model; }
+            set { _model = value; }
+        }
+
+        public int Year
+        {
+            get { return _year; }
+            set
             {
-                _Odometer += km;
-            }
-            else
-            {
-                Console.WriteLine("motoren er ikke tændt");
+                if (value > 1886)
+                    _year = value;
             }
         }
-        // double fordi den skal retunere en double værdi
-        public double CalculateTripPrice(int km)
+
+        public char Gear
         {
-            double PricePerLiter;
-
-            if (_FuelType == "diesel")
-            {
-                PricePerLiter = 13;
-            }
-            else if (_FuelType == "benzin")
-            {
-                PricePerLiter = 14;
-            }
-            else PricePerLiter = 0;
-
-            return (km / _KmPerLiter) * PricePerLiter;
-
+            get { return _gear; }
+            set { _gear = value; }
         }
 
-       
-        public void CarDetails()
+        // Read-only
+        public int Odometer
         {
-            Console.WriteLine($"bilmoddelen er en {_Brand}, {_Model}. Bilen er fra {_Year} og har {_GearType} Gearkasse. Bilen har kørt {_Odometer}, og bruger {_FuelType} som brændstof. bilen køre {_KmPerLiter} pr. liter.");
+            get { return _odometer; }
         }
 
-       
-      
+        public string FuelType
+        {
+            get { return _fuelType; }
+            set { _fuelType = value; }
+        }
 
+        public bool IsEngineOn
+        {
+            get { return _isEngineOn; }
+            set { _isEngineOn = value; }
+        }
 
+        public double KmPerLiter
+        {
+            get { return _kmPerLiter; }
+            set
+            {
+                if (value > 0)
+                    _kmPerLiter = value;
+            }
+        }
 
+        // Metoder
+        public void Drive(double distance)
+        {
+            if (_isEngineOn && distance > 0)
+            {
+                _odometer += (int)distance;
+            }
+        }
+
+        // fuelType-parameteren er ikke nødvendig mere – bruger _fuelType
+        public double CalculateTripPrice(double distance, double literPrice)
+        {
+            double litersUsed = distance / _kmPerLiter;
+            return litersUsed * literPrice;
+        }
+
+        public string GetCarDetails()
+        {
+            return $"{_brand} {_model} ({_year}) | Brændstof: {_fuelType} | " +
+                   $"Gear: {_gear} | Odometer: {_odometer} km | " +
+                   $"Motor: {(_isEngineOn ? "Tændt" : "Slukket")}";
+        }
     }
+
+
 }
+

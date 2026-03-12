@@ -9,50 +9,42 @@ namespace CarAppClass
         static void Main(string[] args)
         {
 
+            Car myCar1 = new Car("Toyota", "Corolla", 2020, 'A', "Benzin", 22.5);
+            Car myCar2 = new Car("Nissan", "Qashqai", 2017, 'M', "Diesel", 17.8);
 
-            Console.Write("Indtast mærke: ");
-            string brand = Console.ReadLine();
+            // Tænd motor og kør
+            myCar1.IsEngineOn = true;
+            myCar1.Drive(120);
+            myCar1.Drive(45);
 
-            Console.Write("Indtast model: ");
-            string model = Console.ReadLine();
+            // Motor er slukket – Drive() gør ingenting
+            myCar2.Drive(50); // odometer forbliver 0
 
-            Console.Write("Indtast år: ");
-            int year = int.Parse(Console.ReadLine());
+            // Udskriv detaljer
+            Console.WriteLine(myCar1.GetCarDetails());
+            Console.WriteLine(myCar2.GetCarDetails());
 
-            Console.Write("Indtast geartype (f/m): ");
-            char gearType = char.Parse(Console.ReadLine());
+            // Beregn turpris
+            double price = myCar1.CalculateTripPrice(200, 15.50);
+            Console.WriteLine($"Turpris: {price:F2} kr");
 
-            Console.Write("Indtast km-stand: ");
-            int odometer = int.Parse(Console.ReadLine());
-
-            Console.Write("Indtast brændstoftype (Benzin/Diesel/Electric/Hybrid): ");
-            Fueltype.FuelType fuelType = Enum.Parse<Fueltype.FuelType>(Console.ReadLine());
-
-            Console.Write("Er motoren tændt (true/false): ");
-            bool isEngineOn = bool.Parse(Console.ReadLine());
-
-            Console.Write("Indtast km/l: ");
-            double kmPerLiter = double.Parse(Console.ReadLine());
-
-            Console.Write("Indtast prisen på det brændstof din bil bruger");
-            double LiterPrice = double.Parse(Console.ReadLine());
-
-
-            Car userCar = new Car(brand, model, year, gearType, odometer, isEngineOn, fuelType, kmPerLiter, LiterPrice);
-
-            
-
-            userCar.CarDetails();
-        
+            // Test properties direkte
+            Console.WriteLine($"Brændstof: {myCar1.FuelType}");
+            Console.WriteLine($"Odometer: {myCar1.Odometer} km");
 
 
 
-            Trip mytrip = new Trip (userCar, 200,new DateTime(2026,5,15),new DateTime(2026,5,16)  );
 
 
-            Console.WriteLine(mytrip.TimeSpanCalculateDuration());
 
-            
+
+
+
+
+
+
+
+
 
         }
     }
