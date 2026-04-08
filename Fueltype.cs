@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CarAppClass
 {
-    internal class Fueltype
+    public class Fueltype
     {
         public enum FuelType
         {

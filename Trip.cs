@@ -5,7 +5,7 @@ using static CarAppClass.Fueltype;
 
 namespace CarAppClass
 {
-    internal class Trip
+    public class Trip
     {
 
         public double Distance {  get; private set; }
@@ -43,7 +43,7 @@ namespace CarAppClass
         {
             double usedfuel = 0.0;
 
-            usedfuel = Distance / _car._kmPerLiter;
+            usedfuel = Distance;
 
 
             return usedfuel;

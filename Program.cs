@@ -4,61 +4,49 @@ using static CarAppClass.Fueltype;
 
 namespace CarAppClass
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Car myCar1 = new Car("Toyota", "Corolla", 2020, 'A', "Benzin", 22.5);
-            Car myCar2 = new Car("Nissan", "Qashqai", 2017, 'M', "Diesel", 17.8);
+            FuelCar fuelCar = new FuelCar("Ford","Cmax",2017,'m',"EK23566",199.875,50.0,50.0,24.4);
 
-            // Tænd motor og kør
-            myCar1.IsEngineOn = true;
-            myCar1.Drive(120);
-            myCar1.Drive(45);
-
-            // Motor er slukket – Drive() gør ingenting
-            myCar2.Drive(50); // odometer forbliver 0
-
-            // Udskriv detaljer
-            Console.WriteLine(myCar1.GetCarDetails());
-            Console.WriteLine(myCar2.GetCarDetails());
-
-            // Beregn turpris
-            double price = myCar1.CalculateTripPrice(200, 15.50);
-            Console.WriteLine($"Turpris: {price:F2} kr");
-
-            // Test properties direkte
-            Console.WriteLine($"Brændstof: {myCar1.FuelType}");
-            Console.WriteLine($"Odometer: {myCar1.Odometer} km");
+            ElectricCar electricCar = new ElectricCar("ford","mustang march e",2019,'a',"BL86665",50.000,351.4,351.4,50.1);
 
 
 
+            fuelCar.TurnEngineOn();
 
-
-            // brug contructor til at opette et nyt trip
-            DateTime startTime = new DateTime(2026, 3, 12, 8, 30, 0);
-            DateTime endTime = new DateTime(2026, 3, 12, 9, 15, 0);
-            Trip trip = new Trip(myCar1, 200, startTime, endTime);
+            electricCar.TurnEngineOn();
 
 
 
+            Trip trip1 = new Trip(fuelCar, 80, DateTime.Now, DateTime.Now.AddHours(1));
 
-        }
-        public static List<Trip> GetTripsByDate(DateTime.Date Inputdate)
-        {
-            List<Trip> ResultTrips = new List<Trip>();
+            Trip trip2 = new Trip(electricCar, 60, DateTime.Now, DateTime.Now.AddHours(1));
 
-            foreach (Trip trip in new List<Trip>())
-            {
-                if (trip.TripDate == Inputdate)
-                {
-                    ResultTrips.Add(trip);
-                }
 
-            }
-            return ResultTrips;
+
+            fuelCar.Drive(trip1);
+
+            electricCar.Drive(trip2);
+
+
+
+            Console.WriteLine($"FuelCar odometer:    {fuelCar._odometer} km");
+
+            Console.WriteLine($"Fuel level:         {fuelCar.FuelLevel:F1} L");
+
+
+
+            Console.WriteLine($"ElectricCar odometer: {electricCar._odometer} km");
+
+            Console.WriteLine($"Battery level:        {electricCar.BatteryLevel:F1} kWh");
+
+
+
 
 
         }
+
     }
 } 

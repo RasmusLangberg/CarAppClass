@@ -5,110 +5,133 @@ using static CarAppClass.Fueltype;
 
 namespace CarAppClass
 {
-    internal class Car
+    public abstract class Car
     {
         // Private felter (indkapsling)
-        public string _brand{ get; private set; }
-        public string _model{ get; private set; }
-        public int _year{ get; private set; }
-        public char _gear{ get; private set; }
-        public int _odometer{ get; private set; }
-        public string _fuelType{ get; private set; }
-        public bool _isEngineOn { get; private set; }
-        public double _kmPerLiter {  get; private set; }
+        public string _brand{ get; set; }
+        public string _model{ get; set; }
+        public int _year{ get;  set; }
+        public char _gear{ get; set; }
+        public string Licenseplate { get; set; }
+        public double _odometer{ get; set; }
+        public bool _IsEngineOn {  get;  set; }
+        
+       public  List<Trip> trips = new List<Trip>();
 
         // Konstruktør
-        public Car(string brand, string model, int year, char gear, string fuelType, double kmPerLiter)
+        public Car(string brand, string model, int year, char gear,string licenseplate,double odometer)
         {
             _brand = brand;
             _model = model;
             _year = year;
             _gear = gear;
-            _fuelType = fuelType;
-            _kmPerLiter = kmPerLiter > 0 ? kmPerLiter : 1;
-            _odometer = 0;
-            _isEngineOn = false;
+            Licenseplate = licenseplate;
+            _odometer = odometer;
+         
+            
+            _IsEngineOn = false;
+            
+            
         }
 
-        // Properties
-        public string Brand
-        {
-            get { return _brand; }
-            set { _brand = value; }
+        public bool TurnEngineOn() 
+        { 
+            _IsEngineOn = true;
+            return _IsEngineOn; 
         }
 
-        public string Model
-        {
-            get { return _model; }
-            set { _model = value; }
-        }
+        public abstract void UpdateEnergyLevel(double km);
 
-        public int Year
+
+        public void Drive(Trip trip)
+
         {
-            get { return _year; }
-            set
+
+            if (_IsEngineOn == true )
+
             {
-                if (value > 1886)
-                    _year = value;
+
+                _odometer += trip.Distance;
+
+                UpdateEnergyLevel(trip.Distance);  // delegeres til underklassen 
+
+                trips.Add(trip);
+
             }
-        }
 
-        public char Gear
-        {
-            get { return _gear; }
-            set { _gear = value; }
-        }
+            else
 
-        // Read-only
-        public int Odometer
-        {
-            get { return _odometer; }
-        }
-
-        public string FuelType
-        {
-            get { return _fuelType; }
-            set { _fuelType = value; }
-        }
-
-        public bool IsEngineOn
-        {
-            get { return _isEngineOn; }
-            set { _isEngineOn = value; }
-        }
-
-        public double KmPerLiter
-        {
-            get { return _kmPerLiter; }
-            set
             {
-                if (value > 0)
-                    _kmPerLiter = value;
-            }
-        }
 
-        // Metoder
-        public void Drive(double distance)
-        {
-            if (_isEngineOn && distance > 0)
-            {
-                _odometer += (int)distance;
+                Console.WriteLine("Fejl: Motoren er ikke tændt.");
+
             }
+
         }
 
         // fuelType-parameteren er ikke nødvendig mere – bruger _fuelType
         public double CalculateTripPrice(double distance, double literPrice)
         {
-            double litersUsed = distance / _kmPerLiter;
+            double litersUsed = distance;
             return litersUsed * literPrice;
         }
 
         public string GetCarDetails()
         {
-            return $"{_brand} {_model} ({_year}) | Brændstof: {_fuelType} | " +
+            return $"{_brand} {_model} ({_year})  | " +
                    $"Gear: {_gear} | Odometer: {_odometer} km | " +
-                   $"Motor: {(_isEngineOn ? "Tændt" : "Slukket")}";
+                   $"Motor: {(_IsEngineOn ? "Tændt" : "Slukket")}";
         }
+
+
+
+        public List<Trip> GetTripsByDateReturnsDateTime(DateTime Inputdate)
+        {
+            List<Trip> ResultTrips = new List<Trip>();
+
+            foreach (Trip trip in trips)
+            {
+                if (trip.TripDate.Date == Inputdate.Date)
+                {
+                    ResultTrips.Add(trip);
+                }
+
+            }
+            return ResultTrips;
+
+
+        }
+
+
+        public List<Trip> GetTripsInTimeInterval(DateTime start, DateTime end )
+        {
+            List<Trip> ResultTrips = new List<Trip>();
+
+            foreach(Trip trip in trips)
+            {
+                if ( trip.StartTime.Hour == start.Hour && trip.EndTime.Hour == end.Hour)
+                {
+                    Console.WriteLine($"Her er alle de ture som har samme tidspunkt:{trip.StartTime}{trip.EndTime}");                   
+                }
+                else
+                {
+                    Console.WriteLine("ingen ture matcher de tidspunkter"); 
+                } 
+            }
+            return ResultTrips;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
