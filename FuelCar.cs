@@ -8,12 +8,12 @@ using static CarAppClass.Fueltype;
 
 namespace CarAppClass
 {
-    internal class FuelCar : Car, ISellable, IInsureable
+    internal class FuelCar : Car, IInsureable
     {
         public double TankCapacity { get; private set; }
         public double FuelLevel { get; private set; }
         public double KmPerLiter { get; private set; }
-        public double Price {  get; private set; }
+
         public string RegistrationNumber
         {
             get { return Licenseplate; }
@@ -21,7 +21,7 @@ namespace CarAppClass
 
 
 
-        public FuelCar(string brand, string model, int year, char gear,string licenseplate, double odometer, double tankCapacity, double fuelLevel, double kmPerLiter) : base(brand, model, year, gear,licenseplate,odometer)
+        public FuelCar(string brand, string model, int year, char gear,string licenseplate, int odometer, double tankCapacity, double fuelLevel, double kmPerLiter) : base(brand, model, year, gear,licenseplate,odometer)
         { 
             TankCapacity = tankCapacity;
             FuelLevel = fuelLevel;
@@ -31,9 +31,9 @@ namespace CarAppClass
           
         }
 
-        public void GetSalesSummary()
+        public string GetSalesSummary()
         {
-            Console.WriteLine($"MÆRKE{Brand}MODEL{Model}FRA{Year}GEARTYPE{Gear}NR PLADE:{Licenseplate}KØRT:{_odometer}KMPL{KmPerLiter}PRIS{Price}");
+            return ($"MÆRKE:{Brand}, MODEL:{Model}, FRA:{Year}, GEARTYPE:{Gear}, NR PLADE:{Licenseplate}, KØRT:{Odometer}, KMPL:{KmPerLiter}");
            
         }
 
@@ -59,9 +59,29 @@ namespace CarAppClass
             }
         }
 
-        static override string ToString()
+         public override string ToString()
         {
-            return $"FuelCar: {Brand}{Model}{Year}{Gear}{LicensePlate}{Odometer}{Price}{KmPerLiter}{TankCapacity}{RegistrationNumber}{FuelLevel}"
+            return $"FuelCar: {Brand},{Model},{Year},{Gear},{Licenseplate},{Odometer},{KmPerLiter},{TankCapacity},{RegistrationNumber},{FuelLevel}";
+
+        }
+
+        public static FuelCar FromString(string data)
+        {
+            string[] parts = data.Split(',');
+
+            string Brand = parts[0];
+
+            string model = parts[1];
+            int year = int.Parse(parts[2]);
+            char gear = char.Parse(parts[3]);
+            string licenseplate = parts[4];
+            int odometer = int.Parse(parts[5]);
+            double fuelLevel = double.Parse(parts[6]);
+            double kmPerLiter = double.Parse(parts[7]);
+            double TankCapacity = double.Parse(parts[8]);
+
+
+            return new FuelCar(Brand, model, year, gear, licenseplate, odometer, fuelLevel,kmPerLiter, TankCapacity);
 
         }
 
@@ -74,9 +94,7 @@ namespace CarAppClass
 
 
 
-
-
-
-
+        
     }
 }
+ 

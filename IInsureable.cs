@@ -7,6 +7,6 @@ namespace CarAppClass
     internal interface IInsureable
     {
         string RegistrationNumber { get; }
-        double GetInsuranceRate();
+       
     }
 }

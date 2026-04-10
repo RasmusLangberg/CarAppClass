@@ -8,36 +8,36 @@ namespace CarAppClass
     public abstract class Car
     {
         // Private felter (indkapsling)
-        public string _brand{ get; set; }
-        public string _model{ get; set; }
-        public int _year{ get;  set; }
-        public char _gear{ get; set; }
+        public string Brand{ get; set; }
+        public string Model{ get; set; }
+        public int Year{ get;  set; }
+        public char Gear{ get; set; }
         public string Licenseplate { get; set; }
-        public double _odometer{ get; set; }
-        public bool _IsEngineOn {  get;  set; }
+        public double Odometer{ get; set; }
+        public bool IsEngineOn {  get;  set; }
         
        public  List<Trip> trips = new List<Trip>();
 
         // Konstruktør
         public Car(string brand, string model, int year, char gear,string licenseplate,double odometer)
         {
-            _brand = brand;
-            _model = model;
-            _year = year;
-            _gear = gear;
+            Brand = brand;
+            Model = model;
+            Year = year;
+            Gear = gear;
             Licenseplate = licenseplate;
-            _odometer = odometer;
+            Odometer = odometer;
          
             
-            _IsEngineOn = false;
+            IsEngineOn = false;
             
             
         }
 
         public bool TurnEngineOn() 
         { 
-            _IsEngineOn = true;
-            return _IsEngineOn; 
+            IsEngineOn = true;
+            return IsEngineOn; 
         }
 
         public abstract void UpdateEnergyLevel(double km);
@@ -47,11 +47,11 @@ namespace CarAppClass
 
         {
 
-            if (_IsEngineOn == true )
+            if (IsEngineOn == true )
 
             {
 
-                _odometer += trip.Distance;
+                Odometer += trip.Distance;
 
                 UpdateEnergyLevel(trip.Distance);  // delegeres til underklassen 
 
@@ -78,9 +78,9 @@ namespace CarAppClass
 
         public string GetCarDetails()
         {
-            return $"{_brand} {_model} ({_year})  | " +
-                   $"Gear: {_gear} | Odometer: {_odometer} km | " +
-                   $"Motor: {(_IsEngineOn ? "Tændt" : "Slukket")}";
+            return $"{Brand} {Model} ({Year})  | " +
+                   $"Gear: {Gear} | Odometer: {Odometer} km | " +
+                   $"Motor: {(IsEngineOn ? "Tændt" : "Slukket")}";
         }
 
 

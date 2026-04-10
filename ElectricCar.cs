@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Xml.Schema;
@@ -41,12 +42,29 @@ namespace CarAppClass
             } 
         }
         
-        static override string ToString()
+       public override string ToString()
         {
-            return $"ElectricCar: {Brand}{Model}{Year}{Gear}{LicensePlate}{Odometer}{Price}{KmPerKwh;}{BatteryCapacity}{BatteryLevel}"
+            return $"ElectricCar: {Brand}{Model}{Year}{Gear}{Licenseplate}{Odometer}{KmPerKwh}{BatteryCapacity}{BatteryLevel}";
   
         }
 
+        public static ElectricCar FromString(string data)
+        {
+            string[] parts = data.Split(',');
+            string Brand = parts[0];
+            string model = parts[1];
+            int year = int.Parse(parts[2]);
+            char gear = char.Parse(parts[3]);
+            string licenseplate = parts[4];
+            int odometer = int.Parse(parts[5]);
+            double KmPerKwh = double.Parse(parts[6]);
+            double BatteryCapacity = double.Parse(parts[7]);
+            double BatteryLevel = double.Parse(parts[8]);
+         
+
+            return new ElectricCar(Brand, model, year, gear, licenseplate, odometer, KmPerKwh, BatteryLevel, BatteryCapacity );
+
+        }
 
     }
 }
