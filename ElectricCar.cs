@@ -38,7 +38,15 @@ namespace CarAppClass
             { 
                 BatteryLevel += kwh;
             
-            }
+            } 
         }
+        
+        static override string ToString()
+        {
+            return $"ElectricCar: {Brand}{Model}{Year}{Gear}{LicensePlate}{Odometer}{Price}{KmPerKwh;}{BatteryCapacity}{BatteryLevel}"
+  
+        }
+
+
     }
 }

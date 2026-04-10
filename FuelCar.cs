@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Runtime.CompilerServices;
 using System.Text;
 using static CarAppClass.Fueltype;
 
@@ -57,6 +58,24 @@ namespace CarAppClass
 
             }
         }
+
+        static override string ToString()
+        {
+            return $"FuelCar: {Brand}{Model}{Year}{Gear}{LicensePlate}{Odometer}{Price}{KmPerLiter}{TankCapacity}{RegistrationNumber}{FuelLevel}"
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
