@@ -25,7 +25,7 @@ namespace CarAppClass
             }
         }
 
-        public List<Car> LoadCarsFromFile()
+        public List<Car> LoadCarsFromFile(List<Car> cars)
         {
             List<Car> cars = new List<Car>();
             using (StreamReader sr = new StreamReader(Filepath))
