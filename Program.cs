@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using System.Security.Cryptography;
-using static CarAppClass.Fueltype;
+using CarApp.Core.Models;
+using CarApp.Core.Repositories;
+using CarApp.Core;
 
 namespace CarAppClass
 {
@@ -18,7 +20,7 @@ namespace CarAppClass
 
             // Program.cs — test af InMemoryCarRepository 
 
-            ICarRepository repo = new InMemoryCarRepository();
+            ICarRepository repo = new FileCarRepository("Cars.txt");
 
 
 
@@ -49,7 +51,7 @@ namespace CarAppClass
             Console.WriteLine($"Antal biler: {repo.GetAll().Count()}"); // 1 
 
 
-            repo.
+            
 
 
 

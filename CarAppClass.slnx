@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="../CarApp.Core/CarApp.Core.csproj" Id="81508340-fa50-4d07-8683-e42e9b736aed" />
   <Project Path="../cartest/cartest.csproj" Id="4d9974f1-b828-4e92-8ef5-7cd605533cbe" />
   <Project Path="CarAppClass.csproj" />
 </Solution>
